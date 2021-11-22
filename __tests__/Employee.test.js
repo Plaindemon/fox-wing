@@ -2,15 +2,24 @@
 // const { test } = require('picomatch');
 // const { expect } = require('@jest/globals');
 // const checkIfEqual = require('../lib/Employee.js');
-const functions = require('../lib/Employee.js');
+// const { expect } = require('@jest/globals');
+// const { test } = require('picomatch');
+const Employee = require('../lib/Employee.js');
 
-test('adds 2 + 2 to equal 4', () => {
-    expect(functions.add(2, 2)).toBe(4);
-});
+// test('adds 2 + 2 to equal 4', () => {
+//     expect(functions.add(2, 2)).toBe(4);
+// // });
 
-test('adds 2 + 2 to NOT equal 7', () => {
-    expect(functions.add(2, 2)).not.toBe(7);
-});
+// test('adds 2 + 2 to NOT equal 7', () => {
+//     expect(functions.add(2, 2)).not.toBe(7);
+// });
+
+test('creates an employee object', () => {
+    const employee = new Employee('Plain');
+
+    expect(employee.name).toBe('Plain');
+
+})
 // test('creates a employee object', () => {
 //     const employee = new Employee('Ben');
 
