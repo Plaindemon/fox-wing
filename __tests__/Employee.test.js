@@ -5,7 +5,7 @@
 // const { expect } = require('@jest/globals');
 // const { test } = require('picomatch');
 const Employee = require('../lib/Employee.js');
-// jest.mock('../lib/Employee');
+jest.mock('../lib/Employee');
 // test('adds 2 + 2 to equal 4', () => {
 //     expect(functions.add(2, 2)).toBe(4);
 // // });
@@ -15,14 +15,13 @@ const Employee = require('../lib/Employee.js');
 // });
 
 test('creates an employee object', () => {
-    const employee = new Employee[('Plain')];
+    const employee = '';
 
-    expect(employee.name).toBe('Plain');
-    // expect(employee.id).toEqual(
-    //     expect.arrayContaining([expect.any(Object)])
-    //   );
 
-})
+    const result = new Employee(str);
+    expect(employee.id).toEqual(true);
+
+});
 // test('creates a employee object', () => {
 //     const employee = new Employee('Ben');
 
