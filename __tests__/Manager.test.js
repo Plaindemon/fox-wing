@@ -1,5 +1,6 @@
-const functions = require('../lib/Manager.js');
+const Manager = require('../lib/Manager.js');
 
-test('adds 2 + 2 to equal 4', () => {
-    expect(functions.add(2, 2)).toBe(4);
+test('creates a Manager office object extension', () => {
+    const office = new Manager('branch 12')
+    expect(office.name).toBe('branch 12');
 });
