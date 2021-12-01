@@ -25,14 +25,15 @@ const questions = [
     name: "employee_email",
     message: "What is the employees email address?",
     default: "no@noemail.com",
-  },
+  }]
+const isPosition = [
   {
-    type: "checkbox",
+    type: "list",
     name: "position",
     message: "What position does the employee occupy?",
-    choices: ["Manager", "Intern", "Engineer"],
+    choices: ["Manager", "Intern", "Engineer","Exit App"],
     default: "Intern",
-  },
+  }
 ];
 
 const engineerQ = [
@@ -56,19 +57,35 @@ const managerQ = [
     message: "What office does this manager run?",
   },
 ];
-
+const managerList = [];
+const internList = [];
+const engineerList = [];
 function init() {
   console.log("\\----------Create a New Team Member----------//");
   inquirer
-    .prompt(questions)
-    .then(({ employee_name, employee_id, employee_email, position }) => {
-      console.log(position[0]);
-      // switch(position){
-      //     case
-      // }
-    })
-    // console.log('//////-----------------New employee created -----------------------/////')
-    .catch((error) => {
+    .prompt(isPosition)
+    .then(({ position }) => {
+      console.log(position);
+      switch(position){
+          case "Manager":
+             managerQuestion = questions.concat(managerQ);
+             addMan(managerQuestion);
+             break;
+
+          case "Engineer":
+            engineerQuestion = questions.concat(engineerQ);
+            addEng(engineerQuestion);
+            break;
+
+            case "Intern":
+                internQuestion = questions.concat(internQ);
+                addInt(internQuestion);
+                break;
+
+           default:
+                generateHTML()
+        }
+    }).catch((error) => {
       if (error.isTtyError) {
         // Prompt couldn't be rendered in the current environment
       } else {
@@ -77,7 +94,33 @@ function init() {
     });
   //   console.log('next line')
 }
+function generateHTML() {
+    console.log(engineerList, managerList, internList);
+}
 
-
+function addMan(managerQuestion){
+    inquirer.prompt(managerQuestion)
+    .then(({office}) => {
+        const teamManager = new Manager(office)
+        managerList.push(teamManager)
+        init()
+    });
+}
+function addInt(internQuestion){
+    inquirer.prompt(internQuestion)
+        .then(({school}) => {
+            const teamIntern = new Intern(school)
+            internList.push(teamIntern)
+            init()
+    })
+}
+function addEng(engineerQuestion){
+    inquirer.prompt(engineerQuestion)
+            .then(({github}) => {
+                const teamEngineer = new Engineer( github)
+              engineerList.push(teamEngineer)
+               init()
+            });
+}
 
 init();
