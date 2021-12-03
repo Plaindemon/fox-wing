@@ -1,7 +1,10 @@
-// add employee
+
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
+// const generate = require("./lib/generateHTML");
+
+
 
 const fs = require("fs");
 const inquirer = require("inquirer");
@@ -83,7 +86,8 @@ function init() {
                 break;
 
            default:
-                generateHTML()
+                generateHTML(engineerList, managerList, internList)
+                console.log(" EXITTTTT")
         }
     }).catch((error) => {
       if (error.isTtyError) {
@@ -94,21 +98,21 @@ function init() {
     });
   //   console.log('next line')
 }
-function generateHTML() {
-    console.log(engineerList, managerList, internList);
-}
+
 
 function addMan(managerQuestion){
     inquirer.prompt(managerQuestion)
-    .then(({office}) => {
+    .then((office) => {
+      console.log(office)
         const teamManager = new Manager(office)
         managerList.push(teamManager)
+        console.log(managerList)
         init()
     });
 }
 function addInt(internQuestion){
     inquirer.prompt(internQuestion)
-        .then(({school}) => {
+        .then((school) => {
             const teamIntern = new Intern(school)
             internList.push(teamIntern)
             init()
@@ -116,7 +120,7 @@ function addInt(internQuestion){
 }
 function addEng(engineerQuestion){
     inquirer.prompt(engineerQuestion)
-            .then(({github}) => {
+            .then((github) => {
                 const teamEngineer = new Engineer( github)
               engineerList.push(teamEngineer)
                init()
