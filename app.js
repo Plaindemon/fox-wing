@@ -28,7 +28,7 @@ const questions = [
     name: "employee_email",
     message: "What is the employees email address?",
     default: "no@noemail.com",
-  }]
+}];
 const isPosition = [
   {
     type: "list",
@@ -60,48 +60,60 @@ const managerQ = [
     message: "What office does this manager run?",
   },
 ];
+
+// empty array
 const managerList = [];
 const internList = [];
 const engineerList = [];
+
+// function to initiate the employee prompt
 function init() {
   console.log("\\----------Create a New Team Member----------//");
   inquirer
     .prompt(isPosition)
     .then(({ position }) => {
+      // console.log the position to check the data
       console.log(position);
+      // switch case to get value from position then if it is manager, intern or engineer then it runs a different but almost identical display
       switch(position){
+        // Prompt gets position value for manager
           case "Manager":
              managerQuestion = questions.concat(managerQ);
              addMan(managerQuestion);
              break;
-
+        // Prompt get github value for engineer
           case "Engineer":
             engineerQuestion = questions.concat(engineerQ);
             addEng(engineerQuestion);
             break;
-
+        // Prompt get school value for intern 
             case "Intern":
                 internQuestion = questions.concat(internQ);
                 addInt(internQuestion);
                 break;
-
+        // if the user chooses the last prompt it then it exits from the list and command has to be rerun in order to add another new employee
            default:
                 generateHTML(engineerList, managerList, internList)
+                // console log test to see if it is reading to exit
                 console.log(" EXITTTTT")
         }
     }).catch((error) => {
       if (error.isTtyError) {
         // Prompt couldn't be rendered in the current environment
+        console.log(" first error is that something went wrong ")
       } else {
         // Something else went wrong
+        console.log('Something went wrong?')
       }
     });
   //   console.log('next line')
 }
 
-
+// addMan gets the managerQuestion 
 function addMan(managerQuestion){
+  // then it runs the inquirer prompt from the switch case 
     inquirer.prompt(managerQuestion)
+    // the then it runs 
     .then((office) => {
       console.log(office)
         const teamManager = new Manager(office)
