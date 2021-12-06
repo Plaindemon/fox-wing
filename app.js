@@ -2,12 +2,14 @@
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
-// const generate = require("./lib/generateHTML");
+const generate = require("./lib/generateHTML");
 
 
 
 const fs = require("fs");
 const inquirer = require("inquirer");
+
+
 
 // Questions for the inquirer prompt
 const questions = [
@@ -93,20 +95,14 @@ function init() {
                 break;
         // if the user chooses the last prompt it then it exits from the list and command has to be rerun in order to add another new employee
            default:
-                generateHTML(engineerList, managerList, internList)
+                generateHTML(position)
                 // console log test to see if it is reading to exit
-                console.log(" EXITTTTT")
+                console.log(" ----------> EXIT <-----------")
         }
     }).catch((error) => {
-      if (error.isTtyError) {
-        // Prompt couldn't be rendered in the current environment
-        console.log(" first error is that something went wrong ")
-      } else {
-        // Something else went wrong
-        console.log('Something went wrong?')
-      }
-    });
+     console.log(error);
   //   console.log('next line')
+    })
 }
 
 // addMan gets the managerQuestion 
