@@ -4,11 +4,8 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const generate = require("./lib/generateHTML");
 
-
-
 const fs = require("fs");
 const inquirer = require("inquirer");
-
 
 
 // Questions for the inquirer prompt
@@ -95,11 +92,19 @@ function init() {
                 break;
         // if the user chooses the last prompt it then it exits from the list and command has to be rerun in order to add another new employee
            default:
-                generateHTML(position)
+                console.log(managerList, internList, engineerList)
+                generate(managerList, internList, engineerList)
+                
                 // console log test to see if it is reading to exit
                 console.log(" ----------> EXIT <-----------")
         }
-    }).catch((error) => {
+        
+    
+    // fs.writeFile("../dist/team.html", generate(position), (err) => {
+    //   if (err) throw new Error(err);
+    // })
+  })
+    .catch((error) => {
      console.log(error);
   //   console.log('next line')
     })
@@ -110,26 +115,25 @@ function addMan(managerQuestion){
   // then it runs the inquirer prompt from the switch case 
     inquirer.prompt(managerQuestion)
     // the then it runs 
-    .then((office) => {
-      console.log(office)
-        const teamManager = new Manager(office)
+    .then(({employee_id,employee_name,employee_email,office}) => {
+        const teamManager = new Manager(employee_name,employee_id,employee_email,office)
         managerList.push(teamManager)
-        console.log(managerList)
+        // console.log(managerList)
         init()
     });
 }
 function addInt(internQuestion){
     inquirer.prompt(internQuestion)
-        .then((school) => {
-            const teamIntern = new Intern(school)
+        .then(({employee_id,employee_name,employee_email,school}) => {
+            const teamIntern = new Intern(employee_id,employee_name,employee_email,school)
             internList.push(teamIntern)
             init()
     })
 }
 function addEng(engineerQuestion){
     inquirer.prompt(engineerQuestion)
-            .then((github) => {
-                const teamEngineer = new Engineer( github)
+            .then(({employee_id,employee_name,employee_email,github}) => {
+                const teamEngineer = new Engineer(employee_id,employee_name,employee_email,github)
               engineerList.push(teamEngineer)
                init()
             });
